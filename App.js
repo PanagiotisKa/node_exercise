@@ -30,9 +30,7 @@ app.use((req, res, next) => {
 
 
 // API Endpoints Paths
-app.get('/', (req, res)=>{
-	res.status(200).send("Hi this is good")
-})
+app.use('/', require("./routes/routes"))
 
 app.use((req, res, next) => {
 	const error = new Error('No route was found for this request!');
