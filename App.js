@@ -4,6 +4,10 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 
+// Database Connection
+const db = require('./config/dbconnect')
+
+
 app.use(morgan('dev', {
 	skip: function (req, res) { return res.statusCode > 400 }
 }));
@@ -23,6 +27,12 @@ app.use((req, res, next) => {
 	}
 	next(); // Go to next middleware
 });
+
+
+// API Endpoints Paths
+app.get('/', (req, res)=>{
+	res.status(200).send("Hi this is good")
+})
 
 app.use((req, res, next) => {
 	const error = new Error('No route was found for this request!');

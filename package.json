@@ -7,10 +7,11 @@
     "start": "nodemon -L Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Panagiotis Kakaletris",
   "license": "ISC",
   "dependencies": {
     "body-parser": "1.20.2",
+    "dotenv": "^16.3.1",
     "express": "4.18.2",
     "morgan": "1.10.0",
     "nodemon": "3.0.1",
