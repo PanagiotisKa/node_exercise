@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const feedDB = require('../controllers/feed.controllers')
-const { getUsers } = require('../controllers/users.controllers')
+const { getUsers, usersMessagesExchange, usersContacts } = require('../controllers/users.controllers')
 
 // FEED ROUTE
 router.post('/feedDB', feedDB)
@@ -9,9 +9,9 @@ router.post('/feedDB', feedDB)
 router.get('/users', getUsers)
 
 // 2 Users and their messages route
-router.get('/user/exchange/:id1/:id2')
+router.get('/user/exchange/:id1/:id2', usersMessagesExchange)
 
-// 1 User and messages with others route
-router.get('/user/messages/:id')
+// Condacts of a User 
+router.get('/user/contacs/:id', usersContacts)
 
 module.exports = router

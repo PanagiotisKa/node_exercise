@@ -1,7 +1,7 @@
 const User = require('../models/User')
 const Message = require('../models/Message')
 const { Op } = require('sequelize')
-
+const { Sequelize } = require('sequelize')
 
 const getUsers = async (req, res) => {
     let params = {}
@@ -20,7 +20,7 @@ const getUsers = async (req, res) => {
         const users = await User.findAll({
             where: params
           })
-        res.set('Access-Control-Expose-Headers', 'X-Total-Count')
+        res.set('Access-Control-Expose-Headers')
         res.status(200).json(users)
         
         
@@ -31,6 +31,55 @@ const getUsers = async (req, res) => {
     }
 }
 
+const usersMessagesExchange = async (req, res) => {
+
+    try {
+        const senderId = req.params.id1
+        const receiverId = req.params.id2
+        const messages = await Message.findAll({
+            where: {
+                [Op.or]: [
+                    { [Op.and]: [{ sender:senderId, receiver: receiverId}] }, 
+                    { [Op.and]: [{receiver: senderId,  sender:receiverId}] }
+                    ]
+            },
+            order: [['timestampSent', 'DESC']]
+        })
+
+        res.set('Access-Control-Expose-Headers')
+        res.status(200).json(messages)
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
+}
 
 
-module.exports = { getUsers }
+const usersContacts = async (req, res) => {
+    try {
+        const user = req.params.id
+        
+        const messages = await Message.findAll({
+            where: { receiver: user},
+            group: ['sender'],
+            attributes: ['sender', [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestampSent']],
+            // include: [{
+            //     model: User,
+            //     where: ["sender = id"]
+            //    }],
+            order: [['maxTimestampSent', 'DESC']]
+        })
+
+        res.set('Access-Control-Expose-Headers')
+        res.status(200).json(messages)
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json(error)
+    }
+
+}
+
+
+module.exports = { getUsers, usersMessagesExchange, usersContacts }
