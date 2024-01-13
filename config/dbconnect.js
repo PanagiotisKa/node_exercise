@@ -17,11 +17,12 @@ const sequelize = new Sequelize(
 
 
 
-console.log("Try to connect to Database")
+console.log("Try to connect to Database") 
+
 
 try {
     sequelize.authenticate()
-    sequelize.sync({ force: true }) // sync
+    // sequelize.sync({ force: true }) // sync
     console.log("Database connection has been established successfully")
     
 } catch (error) {

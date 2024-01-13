@@ -2,6 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize')
 const sequelize = require('../config/dbconnect')
 
 const Message = sequelize.define('message', {
+
     id: {
         type: DataTypes.INTEGER,
         allowNull:false,
@@ -15,15 +16,19 @@ const Message = sequelize.define('message', {
 
     sender: {
         type: DataTypes.INTEGER,
-        references: 'users',
-        referenceKey: 'id',
+        references: {
+            model: 'users',
+            key: 'id'
+        },
         allowNull:false,
     },
 
     receiver: {
         type: DataTypes.INTEGER,
-        references: 'users',
-        referenceKey: 'id',
+        references: {
+            model: 'users',
+            key: 'id'
+        },
         allowNull:false,
     },
 
