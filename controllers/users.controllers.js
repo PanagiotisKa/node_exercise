@@ -58,21 +58,57 @@ const usersMessagesExchange = async (req, res) => {
 
 const usersContacts = async (req, res) => {
     try {
-        const user = req.params.id
+        const userId = req.params.id
         
-        const messages = await Message.findAll({
-            where: { receiver: user},
+        // Find the lates messages the user got grouped by sender
+        const messagesIn = await Message.findAll({
+            where: { receiver: userId},
             group: ['sender'],
-            attributes: ['sender', [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestampSent']],
-            // include: [{
-            //     model: User,
-            //     where: ["sender = id"]
-            //    }],
-            order: [['maxTimestampSent', 'DESC']]
+            attributes: [['sender', 'contact'], [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestamp']],
+            raw: true
+            // order: [['maxTimestampSent', 'DESC']]
         })
 
+        // Find the lates messages the user sent grouped by receiver
+        const messagesOut = await Message.findAll({
+            where: { sender: userId},
+            group: ['receiver'],
+            attributes: [['receiver','contact'], [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestamp']],
+            raw: true
+            // order: [['maxTimestampSent', 'DESC']]
+        })
+
+ 
+
+
+        // merge latest messages sent and received
+        let contacts = [...messagesIn, ...messagesOut]
+
+
+        // Filter contact that where both senter and reveiver by the latest timestamp
+        let result = []
+        console.log(contacts)
+        for(let i = 0; i< contacts.length; i++) {
+            let count = 0
+            for(let j = 0; j < contacts.length; j++) {
+                if ( i != j) {  
+                    if (contacts[i].contact === contacts[j].contact) {
+                        count++ 
+                        if(contacts[i].maxTimestamp > contacts[j].maxTimestamp) result.push(contacts[i])   
+                    }
+                }
+            }
+            if(count == 0) {
+                result.push(contacts[i])
+            }
+            count = 0
+        }  
+
+        // sorting result by timestamp
+        result.sort((a,b) =>  new Date(b.maxTimestamp) - new Date(a.maxTimestamp))
+
         res.set('Access-Control-Expose-Headers')
-        res.status(200).json(messages)
+        res.status(200).json(result)
 
     } catch (error) {
         console.log(error)

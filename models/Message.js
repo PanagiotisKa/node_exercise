@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize')
 const sequelize = require('../config/dbconnect')
+const User = require('./User')
 
 const Message = sequelize.define('message', {
 
@@ -43,5 +44,6 @@ const Message = sequelize.define('message', {
     }
 })
 
+Message.hasMany(User)
 
 module.exports = Message
