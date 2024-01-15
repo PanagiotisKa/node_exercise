@@ -7,7 +7,7 @@ const app = express();
 // Database Connection
 const db = require('./config/dbconnect')
 
-
+ 
 app.use(morgan('dev', {
 	skip: function (req, res) { return res.statusCode > 400 }
 }));

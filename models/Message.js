@@ -44,6 +44,5 @@ const Message = sequelize.define('message', {
     }
 })
 
-Message.hasMany(User)
 
 module.exports = Message
