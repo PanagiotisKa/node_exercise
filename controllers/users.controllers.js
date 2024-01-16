@@ -78,12 +78,8 @@ const usersContacts = async (req, res) => {
             // order: [['maxTimestampSent', 'DESC']]
         })
 
- 
-
-
         // merge latest messages sent and received
         let contacts = [...messagesIn, ...messagesOut]
-
 
         // Filter contact that where both senter and reveiver by the latest timestamp
         let result = []
@@ -106,6 +102,18 @@ const usersContacts = async (req, res) => {
 
         // sorting result by timestamp
         result.sort((a,b) =>  new Date(b.maxTimestamp) - new Date(a.maxTimestamp))
+
+        // Get Names of contacts
+        for(let i=0; i < result.length; i++){
+            const user = await User.findByPk(result[i].contact, {raw: true})
+            if(user.id != undefined) {
+                result[i]['firstName'] = user.firstName
+                result[i]['lastName'] = user.lastName
+            }
+
+        }
+            
+        
 
         res.set('Access-Control-Expose-Headers')
         res.status(200).json(result)

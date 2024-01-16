@@ -6,7 +6,11 @@ export const messages = createSlice({
     initialState: {
       value: []
     },
-    reducers: {},
+    reducers: {
+      resetMessages: (state)=> {
+        state.value = []
+      }
+    },
 
     extraReducers: (builder) => {
       builder.addCase(getMessages.pending, (state) => {
@@ -22,8 +26,8 @@ export const messages = createSlice({
     async (usersIds) => {
 
       try {
-        const userInfo = await axios.get( `${process.env.REACT_APP_API}/user/exchange/${usersIds[0]}/${usersIds[1]}`, { params: {} })
-        return userInfo.data
+        const messages = await axios.get( `${process.env.REACT_APP_API}/user/exchange/${usersIds[0]}/${usersIds[1]}`, { params: {} })
+        return messages.data
         
       } catch (error) {
           console.log(error)
@@ -33,7 +37,6 @@ export const messages = createSlice({
   )
 
   
-  // Action creators are generated for each case reducer function
-  export const { setUser } = messages.actions
+  export const { resetMessages } = messages.actions
   
   export default messages.reducer

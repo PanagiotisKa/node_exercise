@@ -4,14 +4,9 @@ import axios from 'axios'
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
-      value: { firstName: "test"}
+      value: {}
     },
-    reducers: {
-      setUser: (state, action) => {
-        const response = {id: 99, firstName: 'Takis', lastName: 'Smith', gender: 'Male'}
-        state.value = response
-      }
-    },
+    reducers: {},
 
     extraReducers: (builder) => {
       builder.addCase(getUserInfo.pending, (state) => {

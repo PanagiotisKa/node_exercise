@@ -11,7 +11,9 @@ export const contactsSlice = createSlice({
         extraReducers: (builder) => {
             builder.addCase(getUsersContacts.pending, (state)=> {
                 state.value = [{loading: true}]
-            }).addCase()
+            }).addCase(getUsersContacts.fulfilled, (state, action) => {
+                state.value = action.payload
+            })
         }
     }
 )
@@ -20,8 +22,8 @@ export const getUsersContacts = createAsyncThunk(
     'contacts/getUsersContacts',
     async (userId) => {
         try {
-            const userInfo = await axios.get( `${process.env.REACT_APP_API}/user/contacts/:id`)
-            return userInfo.data
+            const userContacts = await axios.get( `${process.env.REACT_APP_API}/user/contacts/${userId}`)
+            return userContacts.data
             
         } catch (error) {
             console.log(error)

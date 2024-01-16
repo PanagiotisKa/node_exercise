@@ -13,12 +13,12 @@ function App() {
             <UserSelector/>
           </Card>
         </Grid>
-        <Grid xs={8}>
+        <Grid xs={9}>
           <Card sx={{m:2, mr:0, mt:0, p:1, background: '#cad5e3'}}>
             <Messages/>
           </Card>
         </Grid>
-        <Grid xs={4}>
+        <Grid alignItems="center" xs={3}>
           <Card sx={{m:2, ml:0, mt:0, p:1, background: '#cad5e3'}}>
             <Contacts/>
           </Card>
