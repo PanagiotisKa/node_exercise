@@ -19,11 +19,7 @@ export const userSlice = createSlice({
       }).addCase(getUserInfo.fulfilled, (state, action) => {
         state.value = action.payload
     })
-    },
-
-    
-
-    
+    }, 
   })
 
   export const getUserInfo = createAsyncThunk(
@@ -35,26 +31,12 @@ export const userSlice = createSlice({
         return userInfo.data[0]
         
       } catch (error) {
-        console.log(error)
-        return {error}
+          console.log(error)
+          return {error}
       }
     }
   )
 
-  export const geAllUsers = createAsyncThunk(
-    'user/getUserInfo',
-    async (userId) => {
-
-      try {
-        const userInfo = await axios.get( `${process.env.REACT_APP_API}/users`, { params: {} })
-        return userInfo.data
-        
-      } catch (error) {
-        console.log(error)
-        return {error}
-      }
-    }
-  )
   
   // Action creators are generated for each case reducer function
   export const { setUser } = userSlice.actions

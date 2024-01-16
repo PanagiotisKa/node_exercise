@@ -19,7 +19,7 @@ export const allUserSlice = createSlice({
   })
 
   export const getAllUsers = createAsyncThunk(
-    'user/getAllUsers',
+    'allUser/getAllUsers',
     async (userId) => {
 
       try {
@@ -36,4 +36,4 @@ export const allUserSlice = createSlice({
   // Action creators are generated for each case reducer function
   export const { } = allUserSlice.actions
   
-  export default allUserSlice .reducer
+  export default allUserSlice.reducer

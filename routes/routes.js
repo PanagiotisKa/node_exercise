@@ -11,7 +11,7 @@ router.get('/users', getUsers)
 // 2 Users and their messages route
 router.get('/user/exchange/:id1/:id2', usersMessagesExchange)
 
-// Condacts of a User 
-router.get('/user/contacs/:id', usersContacts)
+// Contacts of a User 
+router.get('/user/contacts/:id', usersContacts)
 
 module.exports = router
