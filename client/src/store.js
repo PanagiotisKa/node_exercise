@@ -12,6 +12,5 @@ export default configureStore({
     contacts: contactsReducers,
     messages: messagesReducers,
     selectedContact: selectedContactReducers
-
   }
 })

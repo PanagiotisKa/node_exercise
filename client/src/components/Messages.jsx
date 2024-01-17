@@ -1,5 +1,5 @@
 import {Box, Typography }from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import MessageItem from './MessageItem';
 
 function Messages() {

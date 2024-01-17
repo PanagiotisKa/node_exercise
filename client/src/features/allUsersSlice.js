@@ -11,6 +11,8 @@ export const allUserSlice = createSlice({
     extraReducers: (builder) => {
       builder.addCase(getAllUsers.pending, (state) => {
         state.value = { loading: true}
+      }).addCase(getAllUsers.rejected, (state) => {
+        state.value = { loading: false}
       }).addCase(getAllUsers.fulfilled, (state, action) => {
         state.value = action.payload
     })
@@ -32,6 +34,5 @@ export const getAllUsers = createAsyncThunk(
     }
   }
 )
-  
-export const { } = allUserSlice.actions
+
 export default allUserSlice.reducer

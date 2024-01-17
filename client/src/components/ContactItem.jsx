@@ -1,4 +1,4 @@
-import {List, ListItem, ListItemText, Avatar, Divider, Button}from '@mui/material'
+import {ListItem, ListItemText, Avatar, Divider, Button}from '@mui/material'
 import PersonIcon from '@mui/icons-material/Person'
 import { useSelector, useDispatch } from 'react-redux'
 import { getMessages } from '../features/messagesSlice'
@@ -15,15 +15,15 @@ function ContactItem({contact}) {
   
   async  function viewMessages(){
     await dispatch(getSelectedContact (contact))
-    await dispatch(getMessages([user.id, contact.contact]))
+    await dispatch(getMessages([user.id, contact.contactId]))
   }
   
-  if(contact.contact === selectedContact.contact) backColor = '#91afe6'
+  if(contact.contactId === selectedContact.contactId) backColor = '#91afe6'
 
   return (
     <>
       <Button>
-        <ListItem key={contact.contact} sx={{m:1, p:1, background: backColor}} onClick={() => viewMessages()}>
+        <ListItem key={contact.contactId} sx={{m:1, p:1, background: backColor}} onClick={() => viewMessages()}>
           <Avatar> 
             <PersonIcon />
           </Avatar>

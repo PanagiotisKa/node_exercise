@@ -15,10 +15,7 @@ const sequelize = new Sequelize(
    }
 )
 
-
-
 console.log("Try to connect to Database") 
-
 
 try {
     sequelize.authenticate()
@@ -28,6 +25,5 @@ try {
 } catch (error) {
     console.error("Unable to connect to the Database", error)
 }
-
 
 module.exports = sequelize

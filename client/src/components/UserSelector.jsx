@@ -14,7 +14,7 @@ function UserSelector() {
 
   useEffect( () => {
     dispatch(getAllUsers())
-  }, [])
+  }, [dispatch])
 
   function getData(e) {
     dispatch(resetMessages())
@@ -25,24 +25,24 @@ function UserSelector() {
   return (
     <Box sx={{p:2}}>
       <Grid container spacing={2}>
-        <Grid xs={8}>
+        <Grid item xs={8}>
           <Typography variant='h5'color={'white'}></Typography>
         </Grid>
-        <Grid xs={4}>
+        <Grid item xs={4}>
           <Typography variant='h6'color={'white'}> Who you are?  Select User:</Typography>
           <FormControl sx={{width: '100%', p:1 }}>
             <Select sx={{ background: 'white'}} value={''} onChange={(e) => getData(e)}>
               {allUers.length > 0 && allUers.map( item => {
                 return(
                   <MenuItem key={item.id} value={item.id}>
-                    {item. firstName} {' '} {item.lastName}
+                    {item.firstName} {' '} {item.lastName}
                   </MenuItem>
                 )
               })}
             </Select>
           </FormControl>
         </Grid>
-        <Grid xs={12}>
+        <Grid item xs={12}>
           <Typography variant='h6'color={'white'} paddingLeft={5}>
             {user.firstName && 'welcome'}
           </Typography>

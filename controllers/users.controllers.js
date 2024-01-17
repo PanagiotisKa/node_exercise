@@ -20,8 +20,10 @@ const getUsers = async (req, res) => {
         res.status(200).json(users)
         
     } catch (error) {
-        console.log(error)
-        res.status(400).json(error)
+        res.status(500).json({
+            status: "ERROR", 
+            message: error.message
+         })
     }
 }
 
@@ -44,8 +46,10 @@ const usersMessagesExchange = async (req, res) => {
         res.status(200).json(messages)
         
     } catch (error) {
-        console.log(error)
-        res.status(400).json(error)
+        res.status(500).json({
+            status: "ERROR", 
+            message: error.message
+         })
     }
 }
 
@@ -57,7 +61,7 @@ const usersContacts = async (req, res) => {
         const messagesIn = await Message.findAll({
             where: { receiver: userId},
             group: ['sender'],
-            attributes: [['sender', 'contact'], [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestamp']],
+            attributes: [['sender', 'contactId'], [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestamp']],
             raw: true
             // order: [['maxTimestampSent', 'DESC']]
         })
@@ -66,7 +70,7 @@ const usersContacts = async (req, res) => {
         const messagesOut = await Message.findAll({
             where: { sender: userId},
             group: ['receiver'],
-            attributes: [['receiver','contact'], [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestamp']],
+            attributes: [['receiver','contactId'], [Sequelize.fn('MAX', Sequelize.col('timestampSent')), 'maxTimestamp']],
             raw: true
             // order: [['maxTimestampSent', 'DESC']]
         })
@@ -80,7 +84,7 @@ const usersContacts = async (req, res) => {
             let count = 0
             for(let j = 0; j < contacts.length; j++) {
                 if ( i != j) {  
-                    if (contacts[i].contact === contacts[j].contact) {
+                    if (contacts[i].contactId === contacts[j].contactId) {
                         count++ 
                         if(contacts[i].maxTimestamp > contacts[j].maxTimestamp) result.push(contacts[i])   
                     }
@@ -97,7 +101,7 @@ const usersContacts = async (req, res) => {
 
         // Get Names of contacts
         for(let i=0; i < result.length; i++){
-            const user = await User.findByPk(result[i].contact, {raw: true})
+            const user = await User.findByPk(result[i].contactId, {raw: true})
             if(user.id != undefined) {
                 result[i]['firstName'] = user.firstName
                 result[i]['lastName'] = user.lastName
@@ -108,8 +112,10 @@ const usersContacts = async (req, res) => {
         res.status(200).json(result)
 
     } catch (error) {
-        console.log(error)
-        res.status(400).json(error)
+        res.status(500).json({
+            status: "ERROR", 
+            message: error.message
+         })
     }
 }
 

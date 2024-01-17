@@ -9,9 +9,9 @@ router.post('/feedDB', feedDB)
 router.get('/users', getUsers)
 
 // 2 Users and their messages route
-router.get('/user/exchange/:id1/:id2', usersMessagesExchange)
+router.get('/users/messages/:id1/:id2', usersMessagesExchange)
 
 // Contacts of a User 
-router.get('/user/contacts/:id', usersContacts)
+router.get('/users/contacts/:id', usersContacts)
 
 module.exports = router
