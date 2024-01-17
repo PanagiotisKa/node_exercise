@@ -18,20 +18,18 @@ function Contacts() {
 
   return (
     <Box>
-    <Typography align='center' variant='h5'>
-      Contacts
-      </Typography>
+      <Typography align='center' variant='h5'>Contacts</Typography>
+
       { contacts.length > 0 &&
       <List sx={{ width: '100%',  bgcolor: 'background.paper',  }}>
-         {contacts.map( (contact, index) => {
+          {contacts.map( (contact, index) => {
           return (
             <ContactItem key={index} contact={contact}/>
             )
           })}
       </List>
-      }
-  </Box>
-  
+        }
+    </Box>
   )
 }
 

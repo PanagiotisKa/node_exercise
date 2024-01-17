@@ -18,22 +18,20 @@ export const allUserSlice = createSlice({
     
   })
 
-  export const getAllUsers = createAsyncThunk(
-    'allUser/getAllUsers',
-    async (userId) => {
+export const getAllUsers = createAsyncThunk(
+  'allUser/getAllUsers',
+  async (userId) => {
 
-      try {
-        const userInfo = await axios.get( `${process.env.REACT_APP_API}/users`, { params: {} })
-        return userInfo.data
-        
-      } catch (error) {
-        console.log(error)
-        return {error}
-      }
+    try {
+      const userInfo = await axios.get( `${process.env.REACT_APP_API}/users`, { params: {} })
+      return userInfo.data
+      
+    } catch (error) {
+      console.log(error)
+      return {error}
     }
-  )
+  }
+)
   
-  // Action creators are generated for each case reducer function
-  export const { } = allUserSlice.actions
-  
-  export default allUserSlice.reducer
+export const { } = allUserSlice.actions
+export default allUserSlice.reducer

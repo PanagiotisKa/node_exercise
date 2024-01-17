@@ -14,12 +14,7 @@ export const selectedContact = createSlice({
           state.value = {}
         }
     },
-
-  
   })
 
-
-  // Action creators are generated for each case reducer function
   export const { getSelectedContact, resetSelectedContact } = selectedContact.actions
-  
   export default selectedContact.reducer

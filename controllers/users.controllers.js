@@ -12,22 +12,16 @@ const getUsers = async (req, res) => {
         if (req.query.dateOfBirth !== undefined) params.dateOfBirth = new Date(req.query.dateOfBirth).toISOString()
         if (req.query.createdAt !== undefined) params.createdAt = new Date(req.query.createdAt).toISOString()
 
-
-        console.log(params)
-
     try {
-
         const users = await User.findAll({
             where: params
           })
         res.set('Access-Control-Expose-Headers')
         res.status(200).json(users)
         
-        
     } catch (error) {
         console.log(error)
         res.status(400).json(error)
-        
     }
 }
 
@@ -54,7 +48,6 @@ const usersMessagesExchange = async (req, res) => {
         res.status(400).json(error)
     }
 }
-
 
 const usersContacts = async (req, res) => {
     try {
@@ -83,7 +76,6 @@ const usersContacts = async (req, res) => {
 
         // Filter contact that where both senter and reveiver by the latest timestamp
         let result = []
-        console.log(contacts)
         for(let i = 0; i< contacts.length; i++) {
             let count = 0
             for(let j = 0; j < contacts.length; j++) {
@@ -110,10 +102,7 @@ const usersContacts = async (req, res) => {
                 result[i]['firstName'] = user.firstName
                 result[i]['lastName'] = user.lastName
             }
-
         }
-            
-        
 
         res.set('Access-Control-Expose-Headers')
         res.status(200).json(result)
@@ -122,8 +111,6 @@ const usersContacts = async (req, res) => {
         console.log(error)
         res.status(400).json(error)
     }
-
 }
-
 
 module.exports = { getUsers, usersMessagesExchange, usersContacts }

@@ -14,7 +14,6 @@ function ContactItem({contact}) {
   let backColor 
   
   async  function viewMessages(){
-    
     await dispatch(getSelectedContact (contact))
     await dispatch(getMessages([user.id, contact.contact]))
   }
@@ -23,19 +22,19 @@ function ContactItem({contact}) {
 
   return (
     <>
-    <Button>
-    <ListItem key={contact.contact} sx={{m:1, p:1, background: backColor}} onClick={() => viewMessages()}>
-      <Avatar> 
-        <PersonIcon />
-      </Avatar>
-      <ListItemText sx={{m:1, pl:1}} 
-      primary={contact.firstName + ' ' + contact.lastName} 
-      secondary={new Date(contact.maxTimestamp)
-        .toLocaleString( 'en-GB' , {  weekday: "long", year: "numeric", month: "long",  day: "numeric", hour: '2-digit', minute:'2-digit', second:'2-digit'})} />
-    </ListItem>
+      <Button>
+        <ListItem key={contact.contact} sx={{m:1, p:1, background: backColor}} onClick={() => viewMessages()}>
+          <Avatar> 
+            <PersonIcon />
+          </Avatar>
+          <ListItemText sx={{m:1, pl:1}} 
+          primary={contact.firstName + ' ' + contact.lastName} 
+          secondary={new Date(contact.maxTimestamp)
+            .toLocaleString( 'en-GB' , {  weekday: "long", year: "numeric", month: "long",  day: "numeric", hour: '2-digit', minute:'2-digit', second:'2-digit'})} />
+        </ListItem>
       </Button>
-      <Divider variant="middle"/>
-      </>
+    <Divider variant="middle"/>
+    </>
   )
 }
 
