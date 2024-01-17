@@ -3,7 +3,7 @@
 In order to run application use:
       `docker-compose up`
 
-Maybe the first time nodemone will block access to the database so stop the container and run again:
+Maybe the first time nodemon will block access to the database so stop the container and run again:
 ```bash
 docker-compose up
 ```
